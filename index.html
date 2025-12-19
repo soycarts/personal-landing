@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Carter Crouch</title>
+  <meta name="description" content="Personal landing page for Carter Crouch." />
+
+  <style>
+    :root{
+      /* Swap these files in /assets */
+      --bg-url: url("assets/space.webp");
+
+      /* Ive-adjacent: restraint, clarity, subtle depth */
+      --panel: rgba(10, 12, 18, 0.58);
+      --panel-border: rgba(255, 255, 255, 0.10);
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.62);
+
+      --radius: 28px;
+      --shadow: 0 24px 90px rgba(0,0,0,0.55);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden; /* hard “no scroll” */
+      background: #000;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+                   "Helvetica Neue", Arial, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body{
+      min-height: 100vh;
+      min-height: 100svh; /* newer mobile viewport unit */
+      display: grid;
+      place-items: center;
+      padding: clamp(16px, 4vw, 28px);
+      position: relative;
+      isolation: isolate;
+    }
+
+    /* Background image layer */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: var(--bg-url);
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      filter: saturate(1.05) contrast(1.05);
+    }
+
+    /* Darkening / focus layer for legibility */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(1200px 800px at 50% 28%,
+          rgba(0,0,0,0.25), rgba(0,0,0,0.82) 72%),
+        linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.78));
+    }
+
+    /* Main card */
+    main {
+      width: min(640px, 100%);
+      border-radius: var(--radius);
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px) saturate(1.15);
+      -webkit-backdrop-filter: blur(18px) saturate(1.15);
+
+      padding: clamp(18px, 4.5vw, 34px);
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 3vw, 22px);
+
+      /* ensure we never create internal scrollbars */
+      max-height: calc(100svh - 2 * clamp(16px, 4vw, 28px));
+      overflow: hidden;
+    }
+
+    .avatar {
+      width: clamp(72px, 10vw, 96px);
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.35);
+      flex: 0 0 auto;
+    }
+
+    .content { min-width: 0; }
+
+    h1{
+      margin: 0;
+      font-size: clamp(20px, 3.6vw, 30px);
+      letter-spacing: -0.02em;
+      font-weight: 600;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tagline{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: clamp(13px, 2.3vw, 15px);
+      line-height: 1.45;
+
+      /* clamps to keep “no scroll” safe even if you write a longer line */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    nav.social {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    a.icon-btn{
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+
+      color: var(--text);
+      text-decoration: none;
+      transition: transform .16s ease, background .16s ease, border-color .16s ease;
+    }
+
+    a.icon-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    a.icon-btn:active{ transform: translateY(0px); }
+
+    a.icon-btn:focus-visible{
+      outline: 2px solid rgba(255,255,255,0.34);
+      outline-offset: 4px;
+    }
+
+    .icon{
+      width: 20px;
+      height: 20px;
+      display: block;
+      opacity: 0.92;
+    }
+
+    .fineprint{
+      margin-top: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.44);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Mobile layout: stack vertically */
+    @media (max-width: 460px){
+      main{
+        flex-direction: column;
+        text-align: center;
+      }
+      nav.social{ justify-content: center; }
+      h1{ white-space: normal; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      a.icon-btn{ transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <main role="main" aria-label="Personal landing page">
+    <!-- Replace assets/me.jpg with your portrait -->
+    <img class="avatar" src="assets/me.jpg" alt="Portrait of Carter Crouch" />
+
+    <div class="content">
+      <!-- Edit these two lines -->
+      <h1>Carter Crouch</h1>
+      <p class="tagline">Entrepreneur</p>
+
+      <nav class="social" aria-label="Social links">
+        <!-- Replace href values with your real profiles -->
+        <a class="icon-btn" href="https://www.linkedin.com/in/crtrc/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <!-- LinkedIn (outline, Lucide-style) -->
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+
+        <a class="icon-btn" href="https://www.instagram.com/soycarts/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <!-- Instagram -->
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.5" cy="6.5" r="0.9" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </a>
+
+        <a class="icon-btn" href="https://x.com/soycarts" target="_blank" rel="noopener noreferrer" aria-label="X">
+          <!-- X (minimal “X” mark) -->
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6L6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </a>
+      </nav>
+
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
