@@ -71,6 +71,7 @@
     }
 
     /* Main card */
+    /* Main card */
     main {
       width: min(640px, 100%);
       border-radius: var(--radius);
@@ -80,14 +81,28 @@
       backdrop-filter: blur(18px) saturate(1.15);
       -webkit-backdrop-filter: blur(18px) saturate(1.15);
 
-      padding: clamp(18px, 4.5vw, 34px);
+      padding: clamp(30px, 7vw, 60px); /* Increased padding for a better centered look */
       display: flex;
-      align-items: center;
-      gap: clamp(14px, 3vw, 22px);
+      flex-direction: column; /* Stacks avatar and content */
+      align-items: center;    /* Horizontal center */
+      justify-content: center; /* Vertical center */
+      gap: 20px;
 
-      /* ensure we never create internal scrollbars */
       max-height: calc(100svh - 2 * clamp(16px, 4vw, 28px));
       overflow: hidden;
+    }
+
+    .content { 
+      min-width: 0; 
+      text-align: center; /* Centers the H1 and Tagline */
+    }
+
+    nav.social {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      justify-content: center; /* Centers the row of buttons */
+      align-items: center;
     }
 
     .avatar {
@@ -100,8 +115,6 @@
       box-shadow: 0 14px 34px rgba(0,0,0,0.35);
       flex: 0 0 auto;
     }
-
-    .content { min-width: 0; }
 
     h1{
       margin: 0;
@@ -125,13 +138,6 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-    }
-
-    nav.social {
-      margin-top: 16px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
     }
 
     a.icon-btn{
